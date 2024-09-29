@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OnlineGroceryStore.Models.Cart>
+
+@{
+    ViewData["Title"] = "Your Cart";
+}
+
+<h2>Your Cart</h2>
+
+@if (!Model.Any())
+{
+    <p>Your cart is empty.</p>
+    <a href="/Products" class="btn btn-primary">Shop Now</a>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product.ProductName</td>
+                    <td>$@item.Product.Price</td>
+                    <td>
+                        <!-- Form for updating quantity -->
+                        <form asp-action="UpdateQuantity" method="post" class="form-inline">
+                            <input type="hidden" name="cartId" value="@item.CartID" />
+                            <input type="number" name="quantity" value="@item.Quantity" min="1" class="form-control" style="width: 80px;" />
+                            <button type="submit" class="btn btn-sm btn-info ml-2">Update</button>
+                        </form>
+                    </td>
+                    <td>$@(item.Quantity * item.Product.Price)</td> <!-- Calculate the total dynamically -->
+                    <td>
+                        <!-- Form for deleting the item -->
+                        <form asp-action="DeleteFromCart" method="post">
+                            <input type="hidden" name="cartId" value="@item.CartID" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Cart total and checkout buttons -->
+    <div class="text-right">
+        <h4>Total: $@(Model.Sum(i => i.Quantity * i.Product.Price))</h4>
+        <a href="/Checkout" class="btn btn-success">Proceed to Checkout</a>
+        <a href="/Products" class="btn btn-primary">Continue Shopping</a>
+    </div>
+}
+
+
+
+

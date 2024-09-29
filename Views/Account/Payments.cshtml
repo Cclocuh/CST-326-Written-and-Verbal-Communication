@@ -1,0 +1,24 @@
+﻿@model IEnumerable<OnlineGroceryStore.Models.PaymentMethod>
+
+<h2>My Payment Methods</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Card Type</th>
+            <th>Last 4 Digits</th>
+            <th>Expiry Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model)
+        {
+            <tr>
+                <td>@payment.CardType</td>
+                <td>@payment.Last4Digits</td>
+                <td>@payment.ExpiryDate.ToString("MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

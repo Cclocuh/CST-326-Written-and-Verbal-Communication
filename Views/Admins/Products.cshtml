@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OnlineGroceryStore.Models.Product>
+
+<h2>Product Management</h2>
+
+<!-- Search Form -->
+<form asp-action="Products" method="get">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search for a product..." name="searchString" value="@ViewData["CurrentFilter"]" />
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </div>
+</form> 
+
+<a href="/Admins/CreateProduct" class="btn btn-primary mb-3">Create New Product</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Image</th> <!-- Changed to "Image" from "Image URL" -->
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Category</td>
+                <td>@item.Description</td>
+                <td>$@item.Price</td>
+                <td>@item.StockQuantity</td>
+                <td>
+                    <!-- Displaying Image using the ImageURL from the database -->
+                    <img src="@item.ImageURL" alt="@item.ProductName Image" style="width:100px; height:100px;" />
+                </td>
+                <td>
+                    <a href="/Admins/EditProduct/@item.ProductID" class="btn btn-sm btn-info">Edit</a>
+                    <a href="/Admins/DeleteProduct/@item.ProductID" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+

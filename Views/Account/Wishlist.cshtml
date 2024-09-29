@@ -1,0 +1,22 @@
+﻿@model IEnumerable<OnlineGroceryStore.Models.Wishlist>
+
+<h2>My Wishlist</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>$@item.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
